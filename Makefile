@@ -28,14 +28,21 @@ INC_DIR		= inc
 # =========================================================
 SRCS		= \
 	$(SRC_DIR)/main.c \
-	$(SRC_DIR)/mlx.c \
 	$(SRC_DIR)/parsing/check_input_file.c \
 	$(SRC_DIR)/parsing/check_map_elements.c \
 	$(SRC_DIR)/parsing/parse_map.c \
 	$(SRC_DIR)/parsing/validate_map.c \
+	$(SRC_DIR)/render/draw.c \
+	$(SRC_DIR)/render/events.c \
+	$(SRC_DIR)/render/minimap.c \
+	$(SRC_DIR)/render/mlx_init.c \
+	$(SRC_DIR)/render/mlx_utils.c \
+	$(SRC_DIR)/render/render_frame.c \
+	$(SRC_DIR)/render/textures.c \
 	$(SRC_DIR)/utils/get_next_line.c \
 	$(SRC_DIR)/utils/get_next_line_utils.c \
-	$(SRC_DIR)/utils/utils_1.c
+	$(SRC_DIR)/utils/utils_1.c \
+
 
 # =========================================================
 # ---------------------------------------------------------

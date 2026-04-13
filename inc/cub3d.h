@@ -6,7 +6,7 @@
 /*   By: jnieders <jnieders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 11:38:25 by jnieders          #+#    #+#             */
-/*   Updated: 2026/04/13 14:19:24 by jnieders         ###   ########.fr       */
+/*   Updated: 2026/04/13 17:23:36 by jnieders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # define KEY_D		100
 # define KEY_LEFT	65361
 # define KEY_RIGHT	65363
+
+# define MOVE_SPEED	0.1
 
 
 typedef struct s_list
@@ -88,17 +90,31 @@ typedef struct s_data
 }   t_data;
 
 
-/* ============= Forward declaration =============*/
-typedef struct s_mapinfo	t_mapinfo;
-
 /* ============= Utils =============*/
 void	free_str_arr(char **str_arr);
 
-
 /* ============= MLX =============*/
 int 	init_mlx(t_data *data);
+int	    load_textures(t_data *data, t_mapinfo *map);
+
+/* ============= Events =============*/
 int		handle_keypress(int keycode, t_data *data);
 int		handle_close(t_data *data);
+
+/* ============= MLX Utils =============*/
 void	cleanup(t_data *data);
+void	ft_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	draw_square(t_data *d, int x, int y, int size, int color);
+
+
+
+
+
+/* ============= Render Frame =============*/
+int	render_frame(t_data *d);
+
+
+/* ============= Minimap =============*/
+void	draw_minimap(t_data *d);
 
 #endif

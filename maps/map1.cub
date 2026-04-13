@@ -1,7 +1,7 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO ./minilibx-linux/test/open.xpm
+SO ./minilibx-linux/test/open24.xpm
+WE ./minilibx-linux/test/open30.xpm
+EA ./minilibx-linux/test/open.xpm
 
 C 225,30,0
 F 220,100,0

@@ -6,7 +6,7 @@
 /*   By: jnieders <jnieders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:35:47 by jnieders          #+#    #+#             */
-/*   Updated: 2026/04/13 14:36:52 by jnieders         ###   ########.fr       */
+/*   Updated: 2026/04/13 17:29:31 by jnieders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,42 +37,26 @@ static void	all_elements_found(t_mapinfo *map)
 	}
 }
 
-int	check_input_file(t_data *d, int fd)
-{
-	char	*line;
-
-	while ((line = get_next_line(fd)))
-	{
-		if (!is_empty_line(line))
-		{
-			free(line);
-			continue ;
-		}
-		if (d->map.all_elements_found == false)
-		{
-			if (check_map_elements(&d->map, line))
-				return (free(line), 1);
-			all_elements_found(&d->map);
-		}
-		else
-		{
-			if (!is_empty_line(line))
-			{
-				if (d->map.map_list == NULL)
-				{
-					free(line);
-					continue ;
-				}
-				return (free(line), gnl_free_list(&d->map.map_list, 1), 1);
-			}
-			if (add_map_node(&d->map, line))
-				return (free(line), gnl_free_list(&d->map.map_list, 1), 1);
-		}
-		free(line);
-	}
-	return (parse_map_and_check(d));
-}
 /*
+Wir brauchen noch eine free function die in mapinfo aufraeumt, das kann in allen
+returns eintreten, weil dann immer ein teil schon mit strtrim in die texturenpfade
+gemalloced sein kann. Wir brauchen eine aehnliche function wie das hier:
+
+void	free_mapinfo(t_mapinfo *map)
+{
+	if (map->NO)
+		free(map->NO);
+	if (map->SO)
+		free(map->SO);
+	if (map->WE)
+		free(map->WE);
+	if (map->EA)
+		free(map->EA);
+	if (map->map_list)
+		gnl_free_list(&map->map_list, 1);
+}
+*/
+
 int	check_input_file(t_data *d, int fd)
 {
 	char	*line;
@@ -81,31 +65,23 @@ int	check_input_file(t_data *d, int fd)
 	map_ended = false;
 	while ((line = get_next_line(fd)))
 	{
-		// 1. Ist es eine Leerzeile?
 		if (!is_empty_line(line)) 
 		{
-			// Wenn die Map schon läuft, bedeutet eine Leerzeile: Map ist zu Ende!
 			if (d->map.map_list != NULL)
 				map_ended = true;
 			free(line);
 			continue ;
 		}
-
-		// 2. Es ist KEINE Leerzeile. Suchen wir noch Texturen?
 		if (d->map.all_elements_found == false)
 		{
 			if (check_map_elements(&d->map, line))
-				return (free(line), 1); // Hier später noch free_all_data() einbauen
+				return (free(line), 1); // free_mapinfo() einbauen
 			all_elements_found(&d->map);
 		}
-		// 3. Alle Texturen da, also sind wir im Map-Bereich!
 		else
 		{
-			// Wenn wir vorher schon eine Leerzeile hatten (Map war beendet), 
-			// und jetzt kommt WIEDER Map-Inhalt -> ERROR! (Insel-Map / Müll am Ende)
 			if (map_ended == true)
 				return (free(line), gnl_free_list(&d->map.map_list, 1), 1);
-				
 			if (add_map_node(&d->map, line))
 				return (free(line), gnl_free_list(&d->map.map_list, 1), 1);
 		}
@@ -113,4 +89,3 @@ int	check_input_file(t_data *d, int fd)
 	}
 	return (parse_map_and_check(d));
 }
-	*/

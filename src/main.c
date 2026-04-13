@@ -6,7 +6,7 @@
 /*   By: jnieders <jnieders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/01 14:36:56 by jnieders          #+#    #+#             */
-/*   Updated: 2026/04/13 14:36:28 by jnieders         ###   ########.fr       */
+/*   Updated: 2026/04/13 17:13:03 by jnieders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,53 +67,6 @@ void	init_data(t_data *d)
 
 
 
-void testing_function(t_data *d)
-{
-	int	i;
-
-	printf("\n==========================================\n");
-	printf("   🛠️  CUB3D PARSER - STATUS BERICHT  🛠️\n");
-	printf("==========================================\n\n");
-
-	printf("[1] TEXTUREN:\n");
-	printf("  NO: [%s]\n", d->map.NO ? d->map.NO : "NULL");
-	printf("  SO: [%s]\n", d->map.SO ? d->map.SO : "NULL");
-	printf("  WE: [%s]\n", d->map.WE ? d->map.WE : "NULL");
-	printf("  EA: [%s]\n", d->map.EA ? d->map.EA : "NULL");
-	printf("\n");
-
-	printf("[2] FARBEN (RGB):\n");
-	printf("  Floor (F)   : %d, %d, %d\n", d->map.F[0], d->map.F[1], d->map.F[2]);
-	printf("  Ceiling (C) : %d, %d, %d\n", d->map.C[0], d->map.C[1], d->map.C[2]);
-	printf("\n");
-
-	printf("[3] SPIELER DATEN:\n");
-	printf("  Start-Position (x, y) : %f, %f\n", d->pos_x, d->pos_y);
-	printf("  Blickrichtung  (x, y) : %f, %f\n", d->dir_x, d->dir_y);
-	printf("  Kamera-Ebene   (x, y) : %f, %f\n", d->plane_x, d->plane_y);
-	printf("\n");
-
-	printf("[4] MAP ARRAY:\n");
-	i = 0;
-	if (d->map.map_arr)
-	{
-		while (d->map.map_arr[i])
-		{
-			printf("  [%02d]: %s\n", i, d->map.map_arr[i]);
-			i++;
-		}
-	}
-	else
-	{
-		printf("  [ERROR] map_arr ist NULL!\n");
-	}
-	printf("\n==========================================\n");
-}
-
-
-
-
-
 int main(int ac, char **av)
 {
 	int			fd;
@@ -136,13 +89,12 @@ int main(int ac, char **av)
 	// Check Map
 	if (check_input_file(&d, fd))
 		return (printf("Error\nInvalid File\n"), 1);
-	
-	testing_function(&d);
+
 
 	if (init_mlx(&d))
 		return (printf("Error\nMlx init failed\n"), 1);
 
-
+	mlx_loop(d.mlx);
 		
 	return (0);
 }
