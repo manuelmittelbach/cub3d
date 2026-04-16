@@ -21,7 +21,7 @@ INC_DIR		= inc
 
 # =========================================================
 # ---------------------------------------------------------
-# 1) Projekt-Sources (minishell-spezifisch)
+# 1) Projekt-Sources
 #    -> exakt aus deiner aktuellen Struktur
 #    -> wenn du neue Dateien anlegst, hier ergänzen
 # ---------------------------------------------------------
@@ -32,11 +32,11 @@ SRCS		= \
 	$(SRC_DIR)/parsing/check_map_elements.c \
 	$(SRC_DIR)/parsing/parse_map.c \
 	$(SRC_DIR)/parsing/validate_map.c \
-	$(SRC_DIR)/render/draw.c \
 	$(SRC_DIR)/render/events.c \
 	$(SRC_DIR)/render/minimap.c \
 	$(SRC_DIR)/render/mlx_init.c \
 	$(SRC_DIR)/render/mlx_utils.c \
+	$(SRC_DIR)/render/raycaster.c \
 	$(SRC_DIR)/render/render_frame.c \
 	$(SRC_DIR)/render/textures.c \
 	$(SRC_DIR)/utils/get_next_line.c \
