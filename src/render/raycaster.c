@@ -52,23 +52,33 @@ static void	init_ray(t_data *d, t_ray *r, int x)
 {
 	double	camera_x;
 
+	r->wall_dist = 0.0;
 	// Pixelspalte x in den Bereich [-1, +1] umrechnen
 	camera_x = 2 * x / (double)WIDTH - 1;
+
+
 	// Endgueltige Flugrichtung dieses Strahls
 	r->ray_dir_x = d->dir_x + d->plane_x * camera_x;
 	r->ray_dir_y = d->dir_y + d->plane_y * camera_x;
+
+
 	// In welchem Kaestchen steht der Spieler?
 	r->map_x = (int)d->pos_x;
 	r->map_y = (int)d->pos_y;
+
+
 	// Konstante Schrittweite zwischen zwei Gitterlinien
 	if (r->ray_dir_x == 0)
 		r->delta_dist_x = 1e30;
 	else
 		r->delta_dist_x = fabs(1.0 / r->ray_dir_x);
+
 	if (r->ray_dir_y == 0)
 		r->delta_dist_y = 1e30;
 	else
 		r->delta_dist_y = fabs(1.0 / r->ray_dir_y);
+
+
 	// Schritt-Richtung und Startdistanz zur ersten Gitterlinie (X-Achse)
 	if (r->ray_dir_x < 0)
 	{
@@ -80,6 +90,8 @@ static void	init_ray(t_data *d, t_ray *r, int x)
 		r->step_x = 1;
 		r->side_dist_x = (r->map_x + 1.0 - d->pos_x) * r->delta_dist_x;
 	}
+
+
 	// Schritt-Richtung und Startdistanz zur ersten Gitterlinie (Y-Achse)
 	if (r->ray_dir_y < 0)
 	{
@@ -96,10 +108,10 @@ static void	init_ray(t_data *d, t_ray *r, int x)
 // DDA-Loop: Springt von Gitterlinie zu Gitterlinie bis eine Wand getroffen wird
 static void	run_dda(t_data *d, t_ray *r)
 {
-	int	hit;
+	int	hit_flag;
 
-	hit = 0;
-	while (hit == 0)
+	hit_flag = 0;
+	while (hit_flag == 0)
 	{
 		// Welche naechste Gitterlinie ist naeher? X oder Y?
 		if (r->side_dist_x < r->side_dist_y)
@@ -107,20 +119,35 @@ static void	run_dda(t_data *d, t_ray *r)
 			// X-Linie ist naeher: spring ein Kaestchen in X-Richtung
 			r->side_dist_x += r->delta_dist_x;
 			r->map_x += r->step_x;
-			r->side = 0;
+			r->hit = HIT_VERTICAL;
 		}
 		else
 		{
 			// Y-Linie ist naeher: spring ein Kaestchen in Y-Richtung
 			r->side_dist_y += r->delta_dist_y;
 			r->map_y += r->step_y;
-			r->side = 1;
+			r->hit = HIT_HORIZONTAL;
 		}
+
+		
 		// Pruefe: Ist das aktuelle Kaestchen eine Wand?
 		if (d->map.map_arr[r->map_y][r->map_x] == '1')
-			hit = 1;
+		{
+			hit_flag = 1;
+			// Bereinigung des DDA-Overshoots:
+			// Da wir in der Schleife ein Feld zu weit (in die Wand hinein) gesprungen sind, ziehen wir das letzte delta_dist wieder ab.
+			if (r->hit == HIT_VERTICAL)
+				r->wall_dist = r->side_dist_x - r->delta_dist_x;
+			else
+				r->wall_dist = r->side_dist_y - r->delta_dist_y;
+			
+			// Schutzklausel: Verhindert Division durch Null beim späteren Render-Vorgang.
+			if (r->wall_dist <= 0.000001)
+				r->wall_dist = 0.000001;
+		}
 	}
 }
+
 
 // Hauptfunktion: Schiesst 1280 Strahlen und zeichnet die Waende
 void	cast_rays(t_data *d)
@@ -135,25 +162,12 @@ void	cast_rays(t_data *d)
 		init_ray(d, &r, x);
 		run_dda(d, &r);
 		
-		// Schritt 1: Lotrechte Distanz zur Kameraebene berechnen (verhindert Fisheye-Effekt)
-		// Wir nutzen die Tatsache, dass delta_dist genau ein Kästchen weit ist.
-		// Da wir DDA gemacht haben, sind wir EIN delta_dist zu weit gegangen, also ziehen wir es wieder ab.
-		double perp_wall_dist;
-		if (r.side == 0)
-			perp_wall_dist = (r.side_dist_x - r.delta_dist_x);
-		else
-			perp_wall_dist = (r.side_dist_y - r.delta_dist_y);
-
-		// Verhindern einer Division durch null (falls dist 0 sein sollte, worauf wir theorethisch nie stoßen sollten bei einer validen Map)
-		if (perp_wall_dist <= 0.000001)
-			perp_wall_dist = 0.000001;
-
-		// Schritt 2: Hoehe der Wand auf dem Bildschirm berechnen
-		// Je weiter weg (groesseres perp_wall_dist), desto kleiner der line_height.
+		// Schritt 1: Hoehe der Wand auf dem Bildschirm aus der finalen Distanz berechnen
+		// Je weiter weg (groesseres wall_dist), desto kleiner der line_height.
 		int line_height;
-		line_height = (int)(HEIGHT / perp_wall_dist);
+		line_height = (int)(HEIGHT / r.wall_dist);
 
-		// Schritt 3: Start- und Endpunkt fuer den Pixelstrich auf dem Bildschirm berechnen
+		// Schritt 2: Start- und Endpunkt fuer den Pixelstrich auf dem Bildschirm berechnen
 		// Die Wand soll genau in der Mitte der Y-Achse zentriert sein.
 		int draw_start;
 		draw_start = -line_height / 2 + HEIGHT / 2;
@@ -165,13 +179,13 @@ void	cast_rays(t_data *d)
 		if (draw_end >= HEIGHT)
 			draw_end = HEIGHT - 1; // Nicht ueber den unteren Bildschirmrand hinaus malen
 
-		// Schritt 4: Helligkeit anpassen, um Ecken sichtbar zu machen
+		// Schritt 3: Helligkeit anpassen, um Ecken sichtbar zu machen
 		int color;
-		color = 0x00FF00; // Gruen fuer vertikale Waende (X-Achse, side == 0)
-		if (r.side == 1)
-			color = 0x008800; // Dunkelgruen fuer horizontale Waende (Y-Achse, side == 1)
+		color = 0x00FF00; // Gruen fuer vertikale Waende (X-Achse)
+		if (r.hit == HIT_HORIZONTAL)
+			color = 0x008800; // Dunkelgruen fuer horizontale Waende (Y-Achse)
 
-		// Schritt 5: Den Streifen fuer diese spezifische x-Spalte von oben nach unten zeichnen
+		// Schritt 4: Den Streifen fuer diese spezifische x-Spalte von oben nach unten zeichnen
 		int y = draw_start;
 		while (y <= draw_end)
 		{

@@ -68,6 +68,11 @@ typedef struct s_img {
   int height;
 } t_img;
 
+typedef enum e_side {
+  HIT_VERTICAL = 0,
+  HIT_HORIZONTAL = 1
+} t_side;
+
 typedef struct s_ray {
   double	ray_dir_x;
   double	ray_dir_y;
@@ -79,7 +84,8 @@ typedef struct s_ray {
   int		map_y;
   int		step_x;
   int		step_y;
-  int		side;       // 0 = vertikale Wand getroffen, 1 = horizontale Wand
+  t_side	hit;
+  double	wall_dist;
 } t_ray;
 
 typedef struct s_data {
