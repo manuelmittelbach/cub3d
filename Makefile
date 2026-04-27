@@ -42,6 +42,7 @@ SRCS		= \
 	$(SRC_DIR)/raycaster/render_wall.c \
 	$(SRC_DIR)/mlx/textures.c \
 	$(SRC_DIR)/player/events.c \
+	$(SRC_DIR)/player/player_movements.c \
 	$(SRC_DIR)/minimap/minimap.c \
 	$(SRC_DIR)/utils/get_next_line.c \
 	$(SRC_DIR)/utils/get_next_line_utils.c \

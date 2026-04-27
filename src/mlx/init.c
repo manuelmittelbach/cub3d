@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                         :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnieders <jnieders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/10 14:47:28 by mmittelb          #+#    #+#             */
-/*   Updated: 2026/04/13 17:04:06 by jnieders         ###   ########.fr       */
+/*   Created: 2026/04/27 17:03:56 by jnieders          #+#    #+#             */
+/*   Updated: 2026/04/27 17:03:56 by jnieders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "cub3d.h"
 #include "check_input_file.h"
@@ -30,6 +31,7 @@ static int	init_screen(t_data *data)
 static void	init_hooks(t_data *data)
 {
 	mlx_hook(data->win, 2, 1L << 0, handle_keypress, data);
+	mlx_hook(data->win, 3, 1L << 1, handle_keyrelease, data);
 	mlx_hook(data->win, 17, 0, handle_close, data);
 }
 

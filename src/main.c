@@ -52,6 +52,8 @@ void	init_data(t_data *d)
 	ft_memset(&d->screen, 0, sizeof(t_img));
 	ft_memset(d->tex, 0, sizeof(d->tex));
 
+	ft_memset(d->keys, 0, sizeof(d->keys));
+	
     // Parsing Informationen
 	init_mapinfo(&d->map);
 	

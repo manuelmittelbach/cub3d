@@ -35,8 +35,8 @@
 #define KEY_LEFT 65361
 #define KEY_RIGHT 65363
 
-#define MOVE_SPEED 0.1
-#define ROT_SPEED 0.05
+#define MOVE_SPEED 0.01
+#define ROT_SPEED 0.01
 
 typedef struct s_list {
   char *string;
@@ -92,7 +92,7 @@ typedef struct s_wall {
 	int		height;
 	int		start;
 	int		end;
-	int		tex_x;
+	int		tex_col;
 	double	step;
 	double	tex_pos;
 }	t_wall;
@@ -102,6 +102,9 @@ typedef struct s_data {
   void *win;
   t_img screen; // Das Hauptbild zum Anzeigen
   t_img tex[4]; // NO, SO, WE, EA Texturen
+
+  // Array fuer Tastenstatus
+  bool  keys[65536];
 
   // Parsing Informationen
   t_mapinfo map;
@@ -125,7 +128,12 @@ int load_textures(t_data *data, t_mapinfo *map);
 
 /* ============= Events =============*/
 int handle_keypress(int keycode, t_data *data);
+int	handle_keyrelease(int keycode, t_data *d);
 int handle_close(t_data *data);
+
+/* ============= Player Movements =============*/
+void	move_player(t_data *d, double move_x, double move_y);
+void	rotate_player(t_data *d, double rot_speed);
 
 /* ============= MLX Utils =============*/
 void cleanup(t_data *data);

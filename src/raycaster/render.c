@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                     :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnieders <jnieders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/13 17:04:23 by jnieders          #+#    #+#             */
-/*   Updated: 2026/04/13 17:05:56 by jnieders         ###   ########.fr       */
+/*   Created: 2026/04/27 17:05:15 by jnieders          #+#    #+#             */
+/*   Updated: 2026/04/27 17:05:15 by jnieders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,22 @@
 
 int	render_frame(t_data *d)
 {
-	cast_rays(d);
+	if (d->keys[KEY_W] == true)
+		move_player(d, d->dir_x * MOVE_SPEED, d->dir_y * MOVE_SPEED);
+	if (d->keys[KEY_S] == true)
+		move_player(d, -d->dir_x * MOVE_SPEED, -d->dir_y * MOVE_SPEED);
+	if (d->keys[KEY_A] == true)
+		move_player(d, -d->plane_x * MOVE_SPEED, -d->plane_y * MOVE_SPEED);
+	if (d->keys[KEY_D] == true)
+		move_player(d, d->plane_x * MOVE_SPEED, d->plane_y * MOVE_SPEED);
+	if (d->keys[KEY_LEFT] == true)
+		rotate_player(d, -ROT_SPEED);
+	if (d->keys[KEY_RIGHT] == true)
+		rotate_player(d, ROT_SPEED);
 
 	//draw_minimap(d);
-	
+
+	cast_rays(d);
 	mlx_put_image_to_window(d->mlx, d->win, d->screen.img, 0, 0);
 	return (0);
 }

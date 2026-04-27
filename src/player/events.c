@@ -12,38 +12,10 @@
 
 #include "cub3d.h"
 
-static bool	is_wall(t_data *d, double new_x, double new_y)
-{
-	int	map_x;
-	int	map_y;
-
-	map_x = (int)new_x;
-	map_y = (int)new_y;
-	if (d->map.map_arr[map_y][map_x] == '1')
-		return (true);
-		
-	return (false);
-}
-
 int	handle_close(t_data *data)
 {
 	cleanup(data);
 	exit(0);
-}
-
-static void	move_player(t_data *d, double move_x, double move_y)
-{
-	double	target_x;
-	double	target_y;
-
-	target_x = d->pos_x + move_x;
-	target_y = d->pos_y + move_y;
-
-	if (is_wall(d, target_x, d->pos_y) == false)
-		d->pos_x = target_x;
-		
-	if (is_wall(d, d->pos_x, target_y) == false)
-		d->pos_y = target_y;
 }
 
 
@@ -51,7 +23,23 @@ int handle_keypress(int keycode, t_data *d)
 {
 	if (keycode == KEY_ESC)
 		handle_close(d);
+if (keycode >= 0 && keycode < 65536)
+		d->keys[keycode] = true;
+	return (0);
+}
 
+int	handle_keyrelease(int keycode, t_data *d)
+{
+	if (keycode >= 0 && keycode < 65536)
+		d->keys[keycode] = false;
+	return (0);
+}
+
+/*
+int handle_keypress(int keycode, t_data *d)
+{
+	if (keycode == KEY_ESC)
+		handle_close(d);
 	if (keycode == KEY_W) 
 		move_player(d, d->dir_x * MOVE_SPEED, d->dir_y * MOVE_SPEED);
 	if (keycode == KEY_S)
@@ -82,3 +70,4 @@ int handle_keypress(int keycode, t_data *d)
 	}
 	return (0);
 }
+*/
