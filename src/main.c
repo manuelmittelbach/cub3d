@@ -66,7 +66,7 @@ void	init_data(t_data *d)
 	d->plane_y = 0.0;
 }
 
-
+// MAKE FCLEAN FUNKTIONIERT NOCH NICHT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 int main(int ac, char **av)
