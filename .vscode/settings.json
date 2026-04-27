@@ -1,0 +1,7 @@
+{
+    "clangd.fallbackFlags": [
+        "-I/home/jnieders/Projekte/cub3d/inc",
+        "-I/home/jnieders/Projekte/cub3d/src/libft",
+        "-I/home/jnieders/Projekte/cub3d/minilibx-linux"
+    ]
+}

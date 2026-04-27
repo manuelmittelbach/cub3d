@@ -32,13 +32,17 @@ SRCS		= \
 	$(SRC_DIR)/parsing/check_map_elements.c \
 	$(SRC_DIR)/parsing/parse_map.c \
 	$(SRC_DIR)/parsing/validate_map.c \
-	$(SRC_DIR)/render/events.c \
-	$(SRC_DIR)/render/minimap.c \
-	$(SRC_DIR)/render/mlx_init.c \
-	$(SRC_DIR)/render/mlx_utils.c \
-	$(SRC_DIR)/render/raycaster.c \
-	$(SRC_DIR)/render/render_frame.c \
-	$(SRC_DIR)/render/textures.c \
+	$(SRC_DIR)/mlx/init.c \
+	$(SRC_DIR)/mlx/cleanup.c \
+	$(SRC_DIR)/mlx/pixel_put.c \
+	$(SRC_DIR)/raycaster/cast_rays.c \
+	$(SRC_DIR)/raycaster/dda.c \
+	$(SRC_DIR)/raycaster/init_ray.c \
+	$(SRC_DIR)/raycaster/render.c \
+	$(SRC_DIR)/raycaster/render_wall.c \
+	$(SRC_DIR)/mlx/textures.c \
+	$(SRC_DIR)/player/events.c \
+	$(SRC_DIR)/minimap/minimap.c \
 	$(SRC_DIR)/utils/get_next_line.c \
 	$(SRC_DIR)/utils/get_next_line_utils.c \
 	$(SRC_DIR)/utils/utils_1.c \

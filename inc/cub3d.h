@@ -88,6 +88,15 @@ typedef struct s_ray {
   double	wall_dist;
 } t_ray;
 
+typedef struct s_wall {
+	int		height;
+	int		start;
+	int		end;
+	int		tex_x;
+	double	step;
+	double	tex_pos;
+}	t_wall;
+
 typedef struct s_data {
   void *mlx;
   void *win;
@@ -108,6 +117,7 @@ typedef struct s_data {
 
 /* ============= Utils =============*/
 void free_str_arr(char **str_arr);
+int get_rgb_color(int rgb[3]);
 
 /* ============= MLX =============*/
 int init_mlx(t_data *data);
@@ -122,10 +132,15 @@ void cleanup(t_data *data);
 void ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 void draw_square(t_data *d, int x, int y, int size, int color);
 
-/* ============= Render Frame =============*/
+/* ============= Raycaster =============*/
 int render_frame(t_data *d);
 void cast_rays(t_data *d);
+void draw_floor_and_ceiling(t_data *d);
+void render_wall_strip(t_data *d, t_ray *r, int x);
 
+/* ============= DDA =============*/
+void init_ray(t_data *d, t_ray *r, int x);
+void run_dda(t_data *d, t_ray *r);
 /* ============= Minimap =============*/
 void draw_minimap(t_data *d);
 

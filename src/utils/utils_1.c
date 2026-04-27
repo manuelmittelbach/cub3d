@@ -24,3 +24,8 @@ void	free_str_arr(char **str_arr)
 	free(str_arr);
 	return ;
 }
+
+int	get_rgb_color(int rgb[3])
+{
+	return (rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
+}
