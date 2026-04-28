@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_put.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnieders <jnieders@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jnieders <jnieders@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/13 16:37:12 by jnieders          #+#    #+#             */
-/*   Updated: 2026/04/27 17:04:08 by jnieders         ###   ########.fr       */
+/*   Updated: 2026/04/28 16:26:32 by jnieders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,3 @@ void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	draw_square(t_data *d, int x, int y, int size, int color)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < size)
-	{
-		j = 0;
-		while (j < size)
-		{
-			ft_mlx_pixel_put(&d->screen, x + j, y + i, color);
-			j++;
-		}
-		i++;
-	}
-}
