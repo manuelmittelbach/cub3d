@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnieders <jnieders@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jnieders <jnieders@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/30 11:38:25 by jnieders          #+#    #+#             */
-/*   Updated: 2026/04/13 17:23:36 by jnieders         ###   ########.fr       */
+/*   Updated: 2026/04/28 14:42:50 by jnieders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 #include "libft.h"
 #include "mlx.h"
 
-#define WIDTH 1280
-#define HEIGHT 720
+#define WIDTH 1920
+#define HEIGHT 1080
 
 #define KEY_ESC 65307
 #define KEY_W 119
@@ -35,8 +35,8 @@
 #define KEY_LEFT 65361
 #define KEY_RIGHT 65363
 
-#define MOVE_SPEED 0.01
-#define ROT_SPEED 0.01
+#define MOVE_SPEED 0.03
+#define ROT_SPEED 0.04
 
 typedef struct s_list {
   char *string;
@@ -89,7 +89,7 @@ typedef struct s_ray {
 } t_ray;
 
 typedef struct s_wall {
-	int		height;
+	double	height;
 	int		start;
 	int		end;
 	int		tex_col;
@@ -138,7 +138,6 @@ void	rotate_player(t_data *d, double rot_speed);
 /* ============= MLX Utils =============*/
 void cleanup(t_data *data);
 void ft_mlx_pixel_put(t_img *img, int x, int y, int color);
-void draw_square(t_data *d, int x, int y, int size, int color);
 
 /* ============= Raycaster =============*/
 int render_frame(t_data *d);

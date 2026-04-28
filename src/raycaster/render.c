@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnieders <jnieders@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jnieders <jnieders@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 17:05:15 by jnieders          #+#    #+#             */
-/*   Updated: 2026/04/27 17:05:15 by jnieders         ###   ########.fr       */
+/*   Updated: 2026/04/28 14:36:47 by jnieders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	render_frame(t_data *d)
 	if (d->keys[KEY_RIGHT] == true)
 		rotate_player(d, ROT_SPEED);
 
-	//draw_minimap(d);
-
+	
 	cast_rays(d);
+	draw_minimap(d);
 	mlx_put_image_to_window(d->mlx, d->win, d->screen.img, 0, 0);
 	return (0);
 }
