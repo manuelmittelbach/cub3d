@@ -3,108 +3,114 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnieders <jnieders@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jnieders <jnieders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/27 17:03:22 by jnieders          #+#    #+#             */
-/*   Updated: 2026/04/28 16:00:34 by jnieders         ###   ########.fr       */
+/*   Created: 2026/04/30 12:21:54 by jnieders          #+#    #+#             */
+/*   Updated: 2026/04/30 12:21:54 by jnieders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "minimap.h"
 
-#define TILE_SIZE 24
-#define OFFSET 40
-
-static void	draw_square(t_data *d, int x, int y, int size, int color)
+static void draw_mm(t_minimap *mm, int x, int y, int color)
 {
 	int i;
 	int j;
+	int	start_x;
+	int	start_y;
 
 	i = 0;
-	while (i < size)
+	start_x = mm->offset_x + x * mm->tile_size;
+	start_y = mm->offset_y + y * mm->tile_size;
+	while (i < mm->tile_size)
 	{
 		j = 0;
-		while (j < size)
+		while (j < mm->tile_size)
 		{
-			ft_mlx_pixel_put(&d->screen, x + j, y + i, color);
+			ft_mlx_pixel_put(&mm->d->screen, start_x + j, start_y + i, color);
 			j++;
 		}
 		i++;
 	}
 }
-/*
-void	 draw_minimap(t_data *d)
-{
-	int	y;
-	int	x;
-	int	color;
 
+
+static void draw_view_direction(t_minimap *mm, int player_x, int player_y)
+{
+    int center_x;
+    int center_y;
+    int i;
+    int dot_x;
+    int dot_y;
+
+    center_x = player_x + (mm->player_size / 2);
+    center_y = player_y + (mm->player_size / 2);
+    i = 1;
+    while (i <= 3)
+    {
+        dot_x = center_x + (int)(mm->d->dir_x * i * mm->tile_size / 6);
+        dot_y = center_y + (int)(mm->d->dir_y * i * mm->tile_size / 6);
+        ft_mlx_pixel_put(&mm->d->screen, dot_x, dot_y, mm->color_player);
+        ft_mlx_pixel_put(&mm->d->screen, dot_x + 1, dot_y, mm->color_player);
+        ft_mlx_pixel_put(&mm->d->screen, dot_x, dot_y + 1, mm->color_player);
+		ft_mlx_pixel_put(&mm->d->screen, dot_x + 1, dot_y + 1, mm->color_player);
+        i++;
+    }
+}
+
+
+static void draw_player(t_minimap *mm, int color)
+{
+	int i;
+	int j;
+    int player_x;
+    int player_y;
+
+	i = 0;
+    player_x = mm->offset_x + \
+		(int)(mm->d->pos_x * mm->tile_size) - (mm->player_size / 2);
+    player_y = mm->offset_y + \
+		(int)(mm->d->pos_y * mm->tile_size) - (mm->player_size / 2);
+	while (i < mm->player_size)
+	{
+		j = 0;
+		while (j < mm->player_size)
+		{
+			ft_mlx_pixel_put(&mm->d->screen, player_x + j, player_y + i, color);
+			j++;
+		}
+		i++;
+	}
+	draw_view_direction(mm, player_x, player_y);
+}
+
+
+
+void draw_minimap(t_data *d)
+{
+	t_minimap mm;
+	int y;
+	int x;
+	char **map;
+
+	init_minimap(d, &mm);
+	map = d->map.map_arr;
 	y = 0;
-	while (d->map.map_arr[y])
+	while (map[y])
 	{
 		x = 0;
-		while (d->map.map_arr[y][x])
+		while (map[y][x])
 		{
-			if (d->map.map_arr[y][x] == '1')
-				color = 0x808080;
-			else if (d->map.map_arr[y][x] == '0' || ft_strchr("NSEW", d->map.map_arr[y][x]))
-				color = 0xFFFFFF;
-			else
-				color = 0x000000;
+			if (map[y][x] == '1')
+				draw_mm(&mm, x, y, mm.color_wall);
 			
-			draw_square(d, x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE - 1, color);
+			else if (map[y][x] == '0' || ft_strchr("NSEW", map[y][x]))
+				draw_mm(&mm, x, y, mm.color_floor);
+			
 			x++;
 		}
 		y++;
 	}
-
-	// Zeichne den Spieler als kleinen roten Punkt
-	draw_square(d, d->pos_x * TILE_SIZE - 2, d->pos_y * TILE_SIZE - 2, 4, 0xFF0000);
+	draw_player(&mm, mm.color_player);
 }
-*/
-
-
-
-static void	get_map_size(t_data *d, int *w, int *h)
-{
-	*w = 0;
-	*h = 0;
-	while (d->map.map_arr[*h])
-	{
-		if ((int)ft_strlen(d->map.map_arr[*h]) > *w)
-			*w = ft_strlen(d->map.map_arr[*h]);
-		(*h)++;
-	}
-}
-
-void	draw_minimap(t_data *d)
-{
-	int	y;
-	int	x;
-	int	color;
-	int	off[2];
-	int	map_size[2];
-
-	get_map_size(d, &map_size[0], &map_size[1]);
-	off[0] = WIDTH - map_size[0] * TILE_SIZE - OFFSET;
-	off[1] = HEIGHT - map_size[1] * TILE_SIZE - OFFSET;
-	y = -1;
-	while (d->map.map_arr[++y])
-	{
-		x = -1;
-		while (d->map.map_arr[y][++x])
-		{
-			if (d->map.map_arr[y][x] == '1')
-				color = 0x222222;
-			else if (d->map.map_arr[y][x] == '0' || ft_strchr("NSEW", d->map.map_arr[y][x]))
-				color = 0x111111;
-			else
-				continue ;
-			draw_square(d, off[0] + x * TILE_SIZE,
-				off[1] + y * TILE_SIZE, TILE_SIZE, color);
-		}
-	}
-	// hier brauchen wir eine bessere spieler zeichnung
-	draw_square(d, off[0] + (int)(d->pos_x * TILE_SIZE) - 3, off[1] + (int)(d->pos_y * TILE_SIZE) - 3, 6, 0xFF0000);
-}
-

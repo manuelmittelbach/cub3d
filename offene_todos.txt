@@ -1,0 +1,20 @@
+
+
+
+1. Minimap Toogle mit Taste "M"
+2. Minimap nach unten rechts verschieben, aktuell ist sie oben links
+4. Spieler Steuerung mit Mausbewegung
+3. Sprites einbauen
+
+EXTRAS
+4. Zweites Programm machen
+5. Wenn man Programm startet ein Home Bildschirm
+5.1 Homebildschirm -> Bildschirm Aufloesung auswaehlen
+5.2 Homebildschirm -> Top Down Liste mit Spieler Bestzeiten (zeigt nur besten fuenf)
+5.3 Struct anlegen wo Spieler Topzeiten lokal abgespeichert werden
+5.4 Button um Spiel zu starten
+5.5 Spiel startet wenn Timer von 3sek runtergelaufen ist
+5.6 Stoppuhr die laeuft bis alle Sprites auf der Karte aufgesammelt wurden
+5.7 End Bildschirm wenn Rennen vorbei ist, mit Spieler Zeit, dann switch zum Homebildschirm
+5.8 Top Down Liste muss sich aktualisiert haben mit neuer Zeit
+5.9 Musik einfuegen in das Spiel

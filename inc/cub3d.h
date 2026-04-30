@@ -24,8 +24,12 @@
 #include "libft.h"
 #include "mlx.h"
 
-#define WIDTH 1920
-#define HEIGHT 1080
+// #define WIDTH 1920
+// #define HEIGHT 1080
+#define WIDTH 1280
+#define HEIGHT 720
+// #define WIDTH 640
+// #define HEIGHT 480
 
 #define KEY_ESC 65307
 #define KEY_W 119
@@ -148,7 +152,5 @@ void render_wall_strip(t_data *d, t_ray *r, int x);
 /* ============= DDA =============*/
 void init_ray(t_data *d, t_ray *r, int x);
 void run_dda(t_data *d, t_ray *r);
-/* ============= Minimap =============*/
-void draw_minimap(t_data *d);
 
 #endif

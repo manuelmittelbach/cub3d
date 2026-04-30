@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "minimap.h"
 
 int	render_frame(t_data *d)
 {

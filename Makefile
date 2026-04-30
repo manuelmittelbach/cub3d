@@ -43,6 +43,7 @@ SRCS		= \
 	$(SRC_DIR)/mlx/textures.c \
 	$(SRC_DIR)/player/events.c \
 	$(SRC_DIR)/player/player_movements.c \
+	$(SRC_DIR)/minimap/init_mm.c \
 	$(SRC_DIR)/minimap/minimap.c \
 	$(SRC_DIR)/utils/get_next_line.c \
 	$(SRC_DIR)/utils/get_next_line_utils.c \
