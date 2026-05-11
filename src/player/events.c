@@ -23,7 +23,24 @@ int handle_keypress(int keycode, t_data *d)
 {
 	if (keycode == KEY_ESC)
 		handle_close(d);
-if (keycode >= 0 && keycode < 65536)
+
+	if (keycode == KEY_M)
+    	d->show_minimap = !d->show_minimap;
+
+	if (keycode == KEY_T)
+		{
+			d->mouse_active = !d->mouse_active;
+			if (d->mouse_active == true)
+			{
+				mlx_mouse_hide(d->mlx, d->win);
+				mlx_mouse_move(d->mlx, d->win, WIDTH / 2, HEIGHT / 2);
+			}
+			else
+				mlx_mouse_show(d->mlx, d->win);
+
+		}
+
+	if (keycode >= 0 && keycode < 65536)
 		d->keys[keycode] = true;
 	return (0);
 }
@@ -35,39 +52,66 @@ int	handle_keyrelease(int keycode, t_data *d)
 	return (0);
 }
 
-/*
-int handle_keypress(int keycode, t_data *d)
+
+int handle_mouse_move(int x, int y, t_data *d)
 {
-	if (keycode == KEY_ESC)
-		handle_close(d);
-	if (keycode == KEY_W) 
-		move_player(d, d->dir_x * MOVE_SPEED, d->dir_y * MOVE_SPEED);
-	if (keycode == KEY_S)
-		move_player(d, -d->dir_x * MOVE_SPEED, -d->dir_y * MOVE_SPEED);
-	if (keycode == KEY_D)
-		move_player(d, d->plane_x * MOVE_SPEED, d->plane_y * MOVE_SPEED);
-	if (keycode == KEY_A)
-		move_player(d, -d->plane_x * MOVE_SPEED, -d->plane_y * MOVE_SPEED);
+	int movement_x;
+
+	(void)y;
+	if (d->mouse_active == false)
+		return (0);
+
+	// Schritt 3: Berechne den Unterschied zur Mitte
+	movement_x = x - (WIDTH / 2);
+
+	// Schritt 4 & 5: Wenn es eine Bewegung gab, drehe Spieler und setze Maus zurück
+	if (movement_x != 0)
+	{
+		rotate_player(d, movement_x * MOUSE_SENS);
+		mlx_mouse_move(d->mlx, d->win, WIDTH / 2, HEIGHT / 2); // Teleport in die Mitte!
+	}
+	return (0);
+}
 
 
-	if (keycode == KEY_RIGHT)
+/*
+int handle_mouse_move(int x, int y, t_data *d)
+{
+	static int prev_x = -1; // Speichert die X-Position aus dem letzten Frame
+	int movement_x;
+
+	(void)y;
+	if (d->mouse_active == false)
 	{
-		double oldDirX = d->dir_x;
-		d->dir_x = d->dir_x * cos(ROT_SPEED) - d->dir_y * sin(ROT_SPEED);
-		d->dir_y = oldDirX * sin(ROT_SPEED) + d->dir_y * cos(ROT_SPEED);
-		double oldPlaneX = d->plane_x;
-		d->plane_x = d->plane_x * cos(ROT_SPEED) - d->plane_y * sin(ROT_SPEED);
-		d->plane_y = oldPlaneX * sin(ROT_SPEED) + d->plane_y * cos(ROT_SPEED);
+		prev_x = -1; // Reset, wenn die Maussteuerung aus ist
+		return (0);
 	}
-	if (keycode == KEY_LEFT)
+
+	// Beim ersten Aufruf nach dem Einschalten haben wir noch keinen "alten" Wert
+	if (prev_x == -1)
 	{
-		double oldDirX = d->dir_x;
-		d->dir_x = d->dir_x * cos(-ROT_SPEED) - d->dir_y * sin(-ROT_SPEED);
-		d->dir_y = oldDirX * sin(-ROT_SPEED) + d->dir_y * cos(-ROT_SPEED);
-		double oldPlaneX = d->plane_x;
-		d->plane_x = d->plane_x * cos(-ROT_SPEED) - d->plane_y * sin(-ROT_SPEED);
-		d->plane_y = oldPlaneX * sin(-ROT_SPEED) + d->plane_y * cos(-ROT_SPEED);
+		prev_x = x;
+		return (0);
 	}
+
+	// Bewegung berechnen (Aktuelle Position - Letzte Position)
+	movement_x = x - prev_x;
+
+	// Spieler drehen
+	if (movement_x != 0)
+		rotate_player(d, movement_x * MOUSE_SENS);
+
+	// Aktuelle Position für den nächsten Aufruf speichern
+	prev_x = x;
+
+	// --- DER WSL WORKAROUND ---
+	// Wenn die Maus zu nah an den Rand kommt, setzen wir sie in die Mitte zurück.
+	if (x < 100 || x > WIDTH - 100)
+	{
+		mlx_mouse_move(d->mlx, d->win, WIDTH / 2, HEIGHT / 2);
+		prev_x = WIDTH / 2; // WICHTIG: prev_x auch in die Mitte setzen, sonst gibt es beim nächsten Frame eine wilde Drehung!
+	}
+
 	return (0);
 }
 */

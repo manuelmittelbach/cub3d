@@ -56,8 +56,12 @@ void	init_minimap(t_data *d, t_minimap *mm)
 	mm->map_width = 0;
 	mm->map_height = 0;
 	get_map_size(d, mm);
-	mm->offset_x = (WIDTH * 0.03);
-	mm->offset_y = (HEIGHT * 0.03);
+	
+	//mm->offset_x = (WIDTH * 0.03);
+	//mm->offset_y = (HEIGHT * 0.03);
+	mm->offset_x = WIDTH - (mm->map_width * mm->tile_size) - (WIDTH * 0.03);
+	mm->offset_y = HEIGHT - (mm->map_height * mm->tile_size) - (HEIGHT * 0.03);
+	
 	mm->color_wall = scale_rgb_color(d->map.F, 0.4);
 	mm->color_floor = scale_rgb_color(d->map.F, 0.7);
 	mm->color_player = scale_rgb_color(d->map.F, 2.0);

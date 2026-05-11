@@ -32,6 +32,7 @@ static void	init_hooks(t_data *data)
 {
 	mlx_hook(data->win, 2, 1L << 0, handle_keypress, data);
 	mlx_hook(data->win, 3, 1L << 1, handle_keyrelease, data);
+	mlx_hook(data->win, 6, 1L << 6, handle_mouse_move, data);
 	mlx_hook(data->win, 17, 0, handle_close, data);
 }
 
@@ -43,6 +44,13 @@ int	init_mlx(t_data *data)
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3D");
 	if (!data->win)
 		return (mlx_destroy_display(data->mlx), free(data->mlx), 1);
+
+	if (data->mouse_active == true)
+	{
+		mlx_mouse_hide(data->mlx, data->win);
+		mlx_mouse_move(data->mlx, data->win, WIDTH / 2, HEIGHT / 2);
+	}
+
 	if (init_screen(data))
 		return (cleanup(data), 1);
 	if (load_textures(data, &data->map))

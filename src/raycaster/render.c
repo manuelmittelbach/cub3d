@@ -30,7 +30,11 @@ int	render_frame(t_data *d)
 
 	
 	cast_rays(d);
-	draw_minimap(d);
+
+	if (d->show_minimap == true)
+		draw_minimap(d);
+	
+	
 	mlx_put_image_to_window(d->mlx, d->win, d->screen.img, 0, 0);
 	return (0);
 }

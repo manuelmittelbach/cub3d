@@ -56,6 +56,8 @@ void	init_data(t_data *d)
 	
     // Parsing Informationen
 	init_mapinfo(&d->map);
+	d->show_minimap = true;
+	d->mouse_active = true;
 	
 	// Spieler-Werte initialisieren
 	d->pos_x = 0.0;

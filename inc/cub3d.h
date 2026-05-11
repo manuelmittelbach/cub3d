@@ -36,11 +36,14 @@
 #define KEY_A 97
 #define KEY_S 115
 #define KEY_D 100
+#define KEY_M 109
+#define KEY_T 116
 #define KEY_LEFT 65361
 #define KEY_RIGHT 65363
 
 #define MOVE_SPEED 0.03
 #define ROT_SPEED 0.04
+#define MOUSE_SENS 0.0001
 
 typedef struct s_list {
   char *string;
@@ -109,6 +112,8 @@ typedef struct s_data {
 
   // Array fuer Tastenstatus
   bool  keys[65536];
+  bool  show_minimap;
+  bool  mouse_active;
 
   // Parsing Informationen
   t_mapinfo map;
@@ -134,6 +139,7 @@ int load_textures(t_data *data, t_mapinfo *map);
 int handle_keypress(int keycode, t_data *data);
 int	handle_keyrelease(int keycode, t_data *d);
 int handle_close(t_data *data);
+int handle_mouse_move(int x, int y, t_data *d);
 
 /* ============= Player Movements =============*/
 void	move_player(t_data *d, double move_x, double move_y);

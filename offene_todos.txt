@@ -1,10 +1,13 @@
 
 
 
-1. Minimap Toogle mit Taste "M"
-2. Minimap nach unten rechts verschieben, aktuell ist sie oben links
-4. Spieler Steuerung mit Mausbewegung
 3. Sprites einbauen
+
+
+
+
+
+
 
 EXTRAS
 4. Zweites Programm machen
