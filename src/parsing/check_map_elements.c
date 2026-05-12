@@ -44,17 +44,34 @@ static int  is_digit_str(char *str)
 		return (1);
 }
 
-static int	set_colors(char *line, int *color)
+static int	count_commas(char *str)
 {
 	int	i;
-	char **rgb;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == ',')
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+static int	set_colors(char *line, int *color)
+{
+	int		i;
+	char	**rgb;
 
 	if (color[1] != -1)
+		return (1);
+	if (count_commas(line) != 2)
 		return (1);
 	rgb = ft_split(line, ',');
 	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || rgb[3])
 		return (free_str_arr(rgb), 1);
-	
 	i = 0;
 	while (i < 3)
 	{
@@ -68,27 +85,6 @@ static int	set_colors(char *line, int *color)
 	free_str_arr(rgb);
 	return (0);
 }
-
-
-// AKTUELL ERLAUBEN WIR ENDLOS VIELE KOMMAS IN DER ZEILE WEGEN FTSPLIT
-// Vielleicht sollte man hier ein countcommas einbauen, um das abzufangen
-/*
-static int count_commas(char *str)
-{
-    int i;
-    int count;
-
-    i = 0;
-    count = 0;
-    while (str[i])
-    {
-        if (str[i] == ',')
-            count++;
-        i++;
-    }
-    return (count);
-}
-*/
 
 
 /*
