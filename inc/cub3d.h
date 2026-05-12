@@ -43,7 +43,7 @@
 
 #define MOVE_SPEED 0.03
 #define ROT_SPEED 0.04
-#define MOUSE_SENS 0.0001
+#define MOUSE_SENS 0.0007
 
 typedef struct s_list {
   char *string;
@@ -129,6 +129,7 @@ typedef struct s_data {
 
 /* ============= Utils =============*/
 void free_str_arr(char **str_arr);
+void	free_map_and_list(t_mapinfo *map);
 int get_rgb_color(int rgb[3]);
 
 /* ============= MLX =============*/

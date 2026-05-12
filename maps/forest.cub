@@ -1,7 +1,7 @@
-NO ./assets/dark_forest/forest_2.xpm
-SO ./assets/dark_forest/forest_2.xpm
-WE ./assets/dark_forest/forest_2.xpm
-EA ./assets/dark_forest/forest_2.xpm
+NO ./assets/forest.xpm
+SO ./assets/forest.xpm
+WE ./assets/forest.xpm
+EA ./assets/forest.xpm
 
 F 63,59,50
 C 1,1,13

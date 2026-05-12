@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   check_input_file.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnieders <jnieders@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jnieders <jnieders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/01 15:39:46 by jnieders          #+#    #+#             */
-/*   Updated: 2026/04/28 16:00:36 by jnieders         ###   ########.fr       */
+/*   Created: 2026/05/12 10:38:53 by jnieders          #+#    #+#             */
+/*   Updated: 2026/05/12 10:38:53 by jnieders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CHECK_INPUT_FILE_H
 # define CHECK_INPUT_FILE_H
 
-/* ============= Check Input File =============*/
+/* =========================== Check Input File ============================ */
 void	init_mapinfo(t_mapinfo *map);
 int	check_input_file(t_data *d, int fd);
 

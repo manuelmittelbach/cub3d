@@ -63,10 +63,10 @@ int	parse_map_and_check(t_data *d)
 
 	n_lines = count_map_nodes(d->map.map_list);
 	if (n_lines == 0)
-		return (1);
+		return (free_map_and_list(&d->map), 1);
 	d->map.map_arr = malloc(sizeof(char *) * (n_lines + 1));
 	if (!d->map.map_arr)
-		return (gnl_free_list(&d->map.map_list, 1), 1);
+		return (free_map_and_list(&d->map), 1);
 	i = 0;
 	while (d->map.map_list)
 	{
@@ -76,5 +76,7 @@ int	parse_map_and_check(t_data *d)
 		free(temp);
 	}
 	d->map.map_arr[i] = NULL;
-	return (validate_map(d));
+	if (validate_map(d))
+		return (free_map_and_list(&d->map), free_str_arr(d->map.map_arr), 1);
+	return (0);
 }

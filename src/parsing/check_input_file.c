@@ -24,7 +24,7 @@ static int	is_empty_line(char *str)
 	if (str[i] == '\0')
 		return (0);
 	else
-		return (1);	
+		return (1);
 }
 
 static void	all_elements_found(t_mapinfo *map)
@@ -36,26 +36,6 @@ static void	all_elements_found(t_mapinfo *map)
 		return ;
 	}
 }
-
-/*
-Wir brauchen noch eine free function die in mapinfo aufraeumt, das kann in allen
-returns eintreten, weil dann immer ein teil schon mit strtrim in die texturenpfade
-gemalloced sein kann. Wir brauchen eine aehnliche function wie das hier:
-
-void	free_mapinfo(t_mapinfo *map)
-{
-	if (map->NO)
-		free(map->NO);
-	if (map->SO)
-		free(map->SO);
-	if (map->WE)
-		free(map->WE);
-	if (map->EA)
-		free(map->EA);
-	if (map->map_list)
-		gnl_free_list(&map->map_list, 1);
-}
-*/
 
 int	check_input_file(t_data *d, int fd)
 {
@@ -75,15 +55,13 @@ int	check_input_file(t_data *d, int fd)
 		if (d->map.all_elements_found == false)
 		{
 			if (check_map_elements(&d->map, line))
-				return (free(line), 1); // free_mapinfo() einbauen
+				return (free(line), free_map_and_list(&d->map), 1);
 			all_elements_found(&d->map);
 		}
 		else
 		{
-			if (map_ended == true)
-				return (free(line), gnl_free_list(&d->map.map_list, 1), 1);
-			if (add_map_node(&d->map, line))
-				return (free(line), gnl_free_list(&d->map.map_list, 1), 1);
+			if (map_ended == true || add_map_node(&d->map, line))
+				return (free(line), free_map_and_list(&d->map), 1);
 		}
 		free(line);
 	}

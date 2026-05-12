@@ -139,13 +139,10 @@ int	validate_map(t_data *d)
 	
 	if (character_check(d->map.map_arr))
 		return (1);
-
 	set_player_data(d);
-	
 	height = 0;
 	while (d->map.map_arr[height])
 		height++;
-
 	copy_map_arr = copy_map(d->map.map_arr);
 	if (!copy_map_arr)
 		return (1);

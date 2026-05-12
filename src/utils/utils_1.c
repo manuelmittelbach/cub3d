@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "get_next_line.h"
 
 void	free_str_arr(char **str_arr)
 {
@@ -23,6 +24,24 @@ void	free_str_arr(char **str_arr)
 		free(str_arr[i++]);
 	free(str_arr);
 	return ;
+}
+
+void	free_map_and_list(t_mapinfo *map)
+{
+	if (map->NO)
+		free(map->NO);
+	if (map->SO)
+		free(map->SO);
+	if (map->WE)
+		free(map->WE);
+	if (map->EA)
+		free(map->EA);
+	map->NO = NULL;
+	map->SO = NULL;
+	map->WE = NULL;
+	map->EA = NULL;
+	if (map->map_list)
+		gnl_free_list(&map->map_list, 1);
 }
 
 int	get_rgb_color(int rgb[3])

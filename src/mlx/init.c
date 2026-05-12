@@ -41,7 +41,7 @@ int	init_mlx(t_data *data)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (1);
-	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3D");
+	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3d");
 	if (!data->win)
 		return (mlx_destroy_display(data->mlx), free(data->mlx), 1);
 

@@ -13,12 +13,11 @@
 #include "cub3d.h"
 #include "check_input_file.h"
 
-int check_filename(char *fn)
+static int	check_filename(char *fn)
 {
 	int	strlen;
 
 	strlen = ft_strlen(fn);
-
 	if (strlen >= 5)
 	{
 		if (!ft_strcmp(".cub", fn + strlen - 4))
@@ -44,22 +43,16 @@ void	init_mapinfo(t_mapinfo *map)
 	map->map_arr = NULL;
 }
 
-void	init_data(t_data *d)
+static void	init_data(t_data *d)
 {
 	d->mlx = NULL;
 	d->win = NULL;
-	
 	ft_memset(&d->screen, 0, sizeof(t_img));
 	ft_memset(d->tex, 0, sizeof(d->tex));
-
 	ft_memset(d->keys, 0, sizeof(d->keys));
-	
-    // Parsing Informationen
 	init_mapinfo(&d->map);
 	d->show_minimap = true;
 	d->mouse_active = true;
-	
-	// Spieler-Werte initialisieren
 	d->pos_x = 0.0;
 	d->pos_y = 0.0;
 	d->dir_x = 0.0;
@@ -76,30 +69,18 @@ int main(int ac, char **av)
 	int			fd;
 	t_data		d;
 
-	// Input Check und Filename Validierung
 	if (ac != 2)
 		return (printf("Error\nUsage: ./programmname <filename>\n"), 1);
-	
 	if (check_filename(av[1]))
 		return (printf("Error\nInvalid filename\n"), 1);
-
-	// Open Filename
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		return (printf("Error\nOpening file\n"), 1);
-
 	init_data(&d);
-		
-	// Check Map
 	if (check_input_file(&d, fd))
 		return (printf("Error\nInvalid File\n"), 1);
-
-
 	if (init_mlx(&d))
 		return (printf("Error\nMlx init failed\n"), 1);
-
 	mlx_loop(d.mlx);
-		
 	return (0);
 }
-

@@ -69,6 +69,28 @@ static int	set_colors(char *line, int *color)
 	return (0);
 }
 
+
+// AKTUELL ERLAUBEN WIR ENDLOS VIELE KOMMAS IN DER ZEILE WEGEN FTSPLIT
+// Vielleicht sollte man hier ein countcommas einbauen, um das abzufangen
+/*
+static int count_commas(char *str)
+{
+    int i;
+    int count;
+
+    i = 0;
+    count = 0;
+    while (str[i])
+    {
+        if (str[i] == ',')
+            count++;
+        i++;
+    }
+    return (count);
+}
+*/
+
+
 /*
 aktuell koennen wir nur eine allgemeine error meldung geben, weil es drei 
 Zustaende gibt bei dem wir hier 1 also error returnen:

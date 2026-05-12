@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   render_wall.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jnieders <jnieders@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: jnieders <jnieders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/22 12:17:00 by jnieders          #+#    #+#             */
-/*   Updated: 2026/04/28 12:17:33 by jnieders         ###   ########.fr       */
+/*   Updated: 2026/05/12 14:53:52 by jnieders         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 // Bestimmt die Textur-Nummer anhand der Himmelsrichtung
-static int get_tex_num(t_ray *r) {
-	if (r->hit == HIT_VERTICAL) {
+static int get_tex_num(t_ray *r)
+{
+	if (r->hit == HIT_VERTICAL)
+	{
 		if (r->ray_dir_x > 0)
 			return (3);
 		return (2);
@@ -66,8 +68,6 @@ static void draw_strip(t_data *d, t_img *tex, t_wall *w, int x)
 	}
 }
 
-#include "antialiasing.c"
-
 // Zeichnet einen vertikalen Wandstreifen mit Textur
 void render_wall_strip(t_data *d, t_ray *r, int x)
 {
@@ -98,6 +98,4 @@ void render_wall_strip(t_data *d, t_ray *r, int x)
 
 	// 6. Den vertikalen Streifen von oben nach unten zeichnen
 	draw_strip(d, tex, &w, x);
-	// Anti-Aliasing fuer die Wandkanten (zum Entfernen einfach auskommentieren)
-	antialias_edges(d, x, HEIGHT / 2.0 - w.height / 2.0, HEIGHT / 2.0 + w.height / 2.0);
 }

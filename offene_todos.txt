@@ -1,5 +1,6 @@
 
-
+1. doppel komma in rgb werten
+2. overflow von int bei rgb werten
 
 3. Sprites einbauen
 
