@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   mlx_cleanup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jnieders <jnieders@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	cleanup(t_data *data)
+void	mlx_cleanup(t_data *data)
 {
 	int	i;
 
@@ -20,16 +20,26 @@ void	cleanup(t_data *data)
 	while (i < 4)
 	{
 		if (data->tex[i].img)
+		{
 			mlx_destroy_image(data->mlx, data->tex[i].img);
+			data->tex[i].img = NULL;
+		}
 		i++;
 	}
 	if (data->screen.img)
+	{
 		mlx_destroy_image(data->mlx, data->screen.img);
+		data->screen.img = NULL;
+	}
 	if (data->win)
+	{
 		mlx_destroy_window(data->mlx, data->win);
+		data->win = NULL;
+	}
 	if (data->mlx)
 	{
 		mlx_destroy_display(data->mlx);
 		free(data->mlx);
+		data->mlx = NULL;
 	}
 }

@@ -78,9 +78,12 @@ int main(int ac, char **av)
 		return (printf("Error\nOpening file\n"), 1);
 	init_data(&d);
 	if (check_input_file(&d, fd))
-		return (printf("Error\nInvalid File\n"), 1);
+		return (close(fd), printf("Error\nInvalid File\n"), 1);
+	close(fd);
 	if (init_mlx(&d))
-		return (printf("Error\nMlx init failed\n"), 1);
+		return (free_data(&d), printf("Error\nMlx init failed\n"), 1);
 	mlx_loop(d.mlx);
+	mlx_cleanup(&d);
+	free_data(&d);
 	return (0);
 }

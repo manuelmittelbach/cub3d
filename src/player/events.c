@@ -14,7 +14,8 @@
 
 int	handle_close(t_data *data)
 {
-	cleanup(data);
+	mlx_cleanup(data);
+	free_data(data);
 	exit(0);
 }
 

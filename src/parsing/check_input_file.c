@@ -55,13 +55,13 @@ int	check_input_file(t_data *d, int fd)
 		if (d->map.all_elements_found == false)
 		{
 			if (check_map_elements(&d->map, line))
-				return (free(line), free_map_and_list(&d->map), 1);
+				return (free(line), free_data(d), 1);
 			all_elements_found(&d->map);
 		}
 		else
 		{
 			if (map_ended == true || add_map_node(&d->map, line))
-				return (free(line), free_map_and_list(&d->map), 1);
+				return (free(line), free_data(d), 1);
 		}
 		free(line);
 	}

@@ -26,22 +26,35 @@ void	free_str_arr(char **str_arr)
 	return ;
 }
 
-void	free_map_and_list(t_mapinfo *map)
+void	free_data(t_data *d)
 {
-	if (map->NO)
-		free(map->NO);
-	if (map->SO)
-		free(map->SO);
-	if (map->WE)
-		free(map->WE);
-	if (map->EA)
-		free(map->EA);
-	map->NO = NULL;
-	map->SO = NULL;
-	map->WE = NULL;
-	map->EA = NULL;
-	if (map->map_list)
-		gnl_free_list(&map->map_list, 1);
+	if (d->map.NO)
+	{
+		free(d->map.NO);
+		d->map.NO = NULL;
+	}
+	if (d->map.SO)
+	{
+		free(d->map.SO);
+		d->map.SO = NULL;
+	}
+	if (d->map.WE)
+	{
+		free(d->map.WE);
+		d->map.WE = NULL;
+	}
+	if (d->map.EA)
+	{
+		free(d->map.EA);
+		d->map.EA = NULL;
+	}
+	if (d->map.map_list)
+		gnl_free_list(&d->map.map_list, 1);
+	if (d->map.map_arr)
+	{
+		free_str_arr(d->map.map_arr);
+		d->map.map_arr = NULL;
+	}
 }
 
 int	get_rgb_color(int rgb[3])

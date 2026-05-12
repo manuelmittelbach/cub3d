@@ -129,7 +129,7 @@ typedef struct s_data {
 
 /* ============= Utils =============*/
 void free_str_arr(char **str_arr);
-void	free_map_and_list(t_mapinfo *map);
+void	free_data(t_data *d);
 int get_rgb_color(int rgb[3]);
 
 /* ============= MLX =============*/
@@ -147,7 +147,7 @@ void	move_player(t_data *d, double move_x, double move_y);
 void	rotate_player(t_data *d, double rot_speed);
 
 /* ============= MLX Utils =============*/
-void cleanup(t_data *data);
+void mlx_cleanup(t_data *data);
 void ft_mlx_pixel_put(t_img *img, int x, int y, int color);
 
 /* ============= Raycaster =============*/

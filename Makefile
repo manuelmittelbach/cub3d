@@ -33,7 +33,7 @@ SRCS		= \
 	$(SRC_DIR)/parsing/parse_map.c \
 	$(SRC_DIR)/parsing/validate_map.c \
 	$(SRC_DIR)/mlx/init.c \
-	$(SRC_DIR)/mlx/cleanup.c \
+	$(SRC_DIR)/mlx/mlx_cleanup.c \
 	$(SRC_DIR)/mlx/pixel_put.c \
 	$(SRC_DIR)/raycaster/cast_rays.c \
 	$(SRC_DIR)/raycaster/dda.c \

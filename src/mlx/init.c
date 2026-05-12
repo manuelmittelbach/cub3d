@@ -52,9 +52,9 @@ int	init_mlx(t_data *data)
 	}
 
 	if (init_screen(data))
-		return (cleanup(data), 1);
+		return (mlx_cleanup(data), 1);
 	if (load_textures(data, &data->map))
-		return (cleanup(data), 1);
+		return (mlx_cleanup(data), 1);
 	init_hooks(data);
 
 	mlx_loop_hook(data->mlx, render_frame, data);
