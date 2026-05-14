@@ -16,7 +16,8 @@
 
 static int	set_texture_path(char *line, char **target, char *direction)
 {
-	if (ft_strncmp(line, direction, 2) == 0 && (line[2] == ' ' || line[2] == '\t'))
+	if (ft_strncmp(line, direction, 2) == 0
+		&& (line[2] == ' ' || line[2] == '\t'))
 	{
 		if (*target)
 			return (1);
@@ -28,15 +29,15 @@ static int	set_texture_path(char *line, char **target, char *direction)
 	return (1);
 }
 
-static int  is_digit_str(char *str)
+static int	is_digit_str(char *str)
 {
-    while (*str && (*str == ' ' || (*str >= 9 && *str <= 13)))
-        str++;
-    if (!*str || *str < '0' || *str > '9')
-        return (1);
-    while (*str >= '0' && *str <= '9')
-        str++;
-    while (*str && (*str == ' ' || *str == '\n' || (*str >= 9 && *str <= 13)))
+	while (*str && (*str == ' ' || (*str >= 9 && *str <= 13)))
+		str++;
+	if (!*str || *str < '0' || *str > '9')
+		return (1);
+	while (*str >= '0' && *str <= '9')
+		str++;
+	while (*str && (*str == ' ' || *str == '\n' || (*str >= 9 && *str <= 13)))
 		str++;
 	if (*str == '\0')
 		return (0);
@@ -86,36 +87,26 @@ static int	set_colors(char *line, int *color)
 	return (0);
 }
 
-
-/*
-aktuell koennen wir nur eine allgemeine error meldung geben, weil es drei 
-Zustaende gibt bei dem wir hier 1 also error returnen:
-1. Malloc Error
-2. Eine Himmelsrichtung hat bereits einen Wert, also ein Duplikat
-3. Die Zeile war keine emptyline und hat einen Inhalt der sich nicht zuordnen lies
-Das sind alles fehler und fuehren direkt zum Abbruch des Programms. Spaeter koennen
-wir dann aber nur sehr allgemein error melden.
-*/
 int	check_map_elements(t_mapinfo *map, char *line)
 {
 	while (*line && (*line == ' ' || (*line >= 9 && *line <= 13)))
 		line++;
-	if (!set_texture_path(line, &map->NO, "NO"))
+	if (!set_texture_path(line, &map->no, "NO"))
 		return (0);
-	if (!set_texture_path(line, &map->SO, "SO"))
+	if (!set_texture_path(line, &map->so, "SO"))
 		return (0);
-	if (!set_texture_path(line, &map->WE, "WE"))
+	if (!set_texture_path(line, &map->we, "WE"))
 		return (0);
-	if (!set_texture_path(line, &map->EA, "EA"))
+	if (!set_texture_path(line, &map->ea, "EA"))
 		return (0);
 	if (line[0] == 'F' && (line[1] == ' ' || line[1] == '\t'))
 	{
-		if (!set_colors(line + 1, map->F))
+		if (!set_colors(line + 1, map->f))
 			return (0);
 	}
 	if (line[0] == 'C' && (line[1] == ' ' || line[1] == '\t'))
 	{
-		if (!set_colors(line + 1, map->C))
+		if (!set_colors(line + 1, map->c))
 			return (0);
 	}
 	return (1);

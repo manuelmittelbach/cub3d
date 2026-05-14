@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3d.h"
 #include "check_input_file.h"
 
@@ -44,20 +43,16 @@ int	init_mlx(t_data *data)
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3d");
 	if (!data->win)
 		return (mlx_destroy_display(data->mlx), free(data->mlx), 1);
-
 	if (data->mouse_active == true)
 	{
 		mlx_mouse_hide(data->mlx, data->win);
 		mlx_mouse_move(data->mlx, data->win, WIDTH / 2, HEIGHT / 2);
 	}
-
 	if (init_screen(data))
 		return (mlx_cleanup(data), 1);
 	if (load_textures(data, &data->map))
 		return (mlx_cleanup(data), 1);
 	init_hooks(data);
-
 	mlx_loop_hook(data->mlx, render_frame, data);
-	
 	return (0);
 }

@@ -42,9 +42,9 @@ int	add_map_node(t_mapinfo *map, char *line)
 	return (0);
 }
 
-static int count_map_nodes(t_list *list)
+static int	count_map_nodes(t_list *list)
 {
-	int c;
+	int	c;
 
 	c = 0;
 	while (list)

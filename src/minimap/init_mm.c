@@ -13,7 +13,7 @@
 #include "cub3d.h"
 #include "minimap.h"
 
-static void get_map_size(t_data *d, t_minimap *mm)
+static void	get_map_size(t_data *d, t_minimap *mm)
 {
 	while (d->map.map_arr[mm->map_height])
 	{
@@ -23,7 +23,7 @@ static void get_map_size(t_data *d, t_minimap *mm)
 	}
 }
 
-static int scale_rgb_color(int rgb[3], float factor)
+static int	scale_rgb_color(int rgb[3], float factor)
 {
 	int	r;
 	int	g;
@@ -32,7 +32,6 @@ static int scale_rgb_color(int rgb[3], float factor)
 	r = (int)(rgb[0] * factor);
 	g = (int)(rgb[1] * factor);
 	b = (int)(rgb[2] * factor);
-	
 	if (r > 255)
 		r = 255;
 	if (r < 0)
@@ -45,7 +44,6 @@ static int scale_rgb_color(int rgb[3], float factor)
 		b = 255;
 	if (b < 0)
 		b = 0;
-	
 	return (r << 16 | g << 8 | b);
 }
 
@@ -56,14 +54,10 @@ void	init_minimap(t_data *d, t_minimap *mm)
 	mm->map_width = 0;
 	mm->map_height = 0;
 	get_map_size(d, mm);
-	
-	//mm->offset_x = (WIDTH * 0.03);
-	//mm->offset_y = (HEIGHT * 0.03);
 	mm->offset_x = WIDTH - (mm->map_width * mm->tile_size) - (WIDTH * 0.03);
 	mm->offset_y = HEIGHT - (mm->map_height * mm->tile_size) - (HEIGHT * 0.03);
-	
-	mm->color_wall = scale_rgb_color(d->map.F, 0.4);
-	mm->color_floor = scale_rgb_color(d->map.F, 0.7);
-	mm->color_player = scale_rgb_color(d->map.F, 2.0);
+	mm->color_wall = scale_rgb_color(d->map.f, 0.4);
+	mm->color_floor = scale_rgb_color(d->map.f, 0.7);
+	mm->color_player = scale_rgb_color(d->map.f, 2.0);
 	mm->player_size = mm->tile_size / 3;
 }

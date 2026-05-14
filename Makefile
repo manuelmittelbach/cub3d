@@ -1,7 +1,7 @@
 # =========================================================
 # Name des finalen Binaries
 # =========================================================
-NAME		= cub3D
+NAME		= cub3d
 
 # =========================================================
 # Compiler und Flags
@@ -32,6 +32,7 @@ SRCS		= \
 	$(SRC_DIR)/parsing/check_map_elements.c \
 	$(SRC_DIR)/parsing/parse_map.c \
 	$(SRC_DIR)/parsing/validate_map.c \
+	$(SRC_DIR)/parsing/player_setup.c \
 	$(SRC_DIR)/mlx/init.c \
 	$(SRC_DIR)/mlx/mlx_cleanup.c \
 	$(SRC_DIR)/mlx/pixel_put.c \
@@ -47,7 +48,7 @@ SRCS		= \
 	$(SRC_DIR)/minimap/minimap.c \
 	$(SRC_DIR)/utils/get_next_line.c \
 	$(SRC_DIR)/utils/get_next_line_utils.c \
-	$(SRC_DIR)/utils/utils_1.c \
+	$(SRC_DIR)/utils/utils.c \
 
 
 # =========================================================

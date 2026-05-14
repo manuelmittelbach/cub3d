@@ -20,7 +20,7 @@ void	ft_putnbr_fd_rec(long nb, int fd)
 	{
 		ft_putnbr_fd_rec(nb / 10, fd);
 		c = (nb % 10) + 48;
-		write(fd, &c, 1); 
+		write(fd, &c, 1);
 	}
 }
 

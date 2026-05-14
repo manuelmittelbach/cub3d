@@ -37,7 +37,6 @@ void	move_player(t_data *d, double move_x, double move_y)
 
 	target_x = d->pos_x + move_x;
 	target_y = d->pos_y + move_y;
-
 	if (is_wall(d, d->pos_x + move_x * 3, d->pos_y) == false)
 		d->pos_x = target_x;
 	if (is_wall(d, d->pos_x, d->pos_y + move_y * 3) == false)

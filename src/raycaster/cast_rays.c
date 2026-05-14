@@ -21,8 +21,8 @@ void draw_floor_and_ceiling(t_data *d) {
   int ceiling_color;
   int floor_color;
 
-  ceiling_color = get_rgb_color(d->map.C);
-  floor_color = get_rgb_color(d->map.F);
+  ceiling_color = get_rgb_color(d->map.c);
+  floor_color = get_rgb_color(d->map.f);
   y = 0;
   while (y < HEIGHT) {
     x = 0;

@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-void	mlx_cleanup(t_data *data)
+static void	cleanup_textures(t_data *data)
 {
 	int	i;
 
@@ -26,6 +26,11 @@ void	mlx_cleanup(t_data *data)
 		}
 		i++;
 	}
+}
+
+void	mlx_cleanup(t_data *data)
+{
+	cleanup_textures(data);
 	if (data->screen.img)
 	{
 		mlx_destroy_image(data->mlx, data->screen.img);

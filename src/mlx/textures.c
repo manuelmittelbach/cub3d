@@ -27,13 +27,13 @@ static int	load_texture(t_data *data, t_img *tex, char *path)
 
 int	load_textures(t_data *data, t_mapinfo *map)
 {
-	if (load_texture(data, &data->tex[0], map->NO))
+	if (load_texture(data, &data->tex[0], map->no))
 		return (1);
-	if (load_texture(data, &data->tex[1], map->SO))
+	if (load_texture(data, &data->tex[1], map->so))
 		return (1);
-	if (load_texture(data, &data->tex[2], map->WE))
+	if (load_texture(data, &data->tex[2], map->we))
 		return (1);
-	if (load_texture(data, &data->tex[3], map->EA))
+	if (load_texture(data, &data->tex[3], map->ea))
 		return (1);
 	return (0);
 }

@@ -45,7 +45,7 @@ static char	*assemble_line(t_list **list, int pos_nl)
 	char	*str;
 	t_list	*temp;
 
-	if (list == NULL || *list == NULL) 
+	if (list == NULL || *list == NULL)
 		return (NULL);
 	if ((*list)->next == NULL && (*list)->string[0] == '\0')
 	{

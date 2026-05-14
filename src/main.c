@@ -28,16 +28,16 @@ static int	check_filename(char *fn)
 
 void	init_mapinfo(t_mapinfo *map)
 {
-	map->NO = NULL;
-	map->SO = NULL;
-	map->WE = NULL;
-	map->EA = NULL;
-	map->F[0] = -1;
-	map->F[1] = -1;
-	map->F[2] = -1;
-	map->C[0] = -1;
-	map->C[1] = -1;
-	map->C[2] = -1;
+	map->no = NULL;
+	map->so = NULL;
+	map->we = NULL;
+	map->ea = NULL;
+	map->f[0] = -1;
+	map->f[1] = -1;
+	map->f[2] = -1;
+	map->c[0] = -1;
+	map->c[1] = -1;
+	map->c[2] = -1;
 	map->all_elements_found = false;
 	map->map_list = NULL;
 	map->map_arr = NULL;
@@ -64,7 +64,7 @@ static void	init_data(t_data *d)
 // MAKE FCLEAN FUNKTIONIERT NOCH NICHT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	int			fd;
 	t_data		d;
