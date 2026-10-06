@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by mmittelb, jnieders.*
+*This project has been created as part of the 42 curriculum by [mmittelb](https://github.com/manuelmittelbach) and [jnieders](https://github.com/jnieders).*
 
 # cub3D
 
